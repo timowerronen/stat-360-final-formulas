@@ -1,0 +1,138 @@
+\documentclass[9pt]{extarticle}
+\usepackage[paperheight=11in, paperwidth=8.5in, top=0.25in, bottom=0.25in, left=0.25in, right=0.25in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[table]{xcolor}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{cancel}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage[skip=6pt, indent=0pt]{parskip}
+\newcommand{\IQR}{\operatorname{IQR}}
+\newcommand{\Bias}{\operatorname{Bias}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\SSE}{\operatorname{SSE}}
+\newcommand{\SST}{\operatorname{SST}}
+\newcommand{\Param}{\hat{\theta}}
+\newcommand{\Xbar}{\bar{X}}
+
+\renewcommand{\arraystretch}{2}
+
+\title{Stats Exam 2 Formulas}
+\author{Timo Werronen}
+\date{November 2025}
+
+\begin{document}
+\section*{Definitions}
+Two events $A, B$ are \textbf{independent} iff $P(A \cap B) = P(A) \cdot P(B)$ and $P(A \mid B) = P(A)$. Two events are \textbf{mutually exclusive (disjoint)} iff $A \cap B = \emptyset$.
+
+A \textbf{Bernoulli distribution} is used for an RV with a binary outcome and a probability of success $p$. A \textbf{geometric distribution} describes the number of Bernoulli trials $X$ (each with probability of success $p$) until a success. A \textbf{binomial distribution} describes the number of successful events $X$ in $n$ Bernoulli trials. A \textbf{negative binomial distribution} describes the number of Bernoulli trials $X$ until there are $r$ successes. A \textbf{Poisson distribution} describes data rates (per unit time).
+
+For a discrete RV, the \textbf{probability mass function (pmf/pdf)} is the function $f(x)$ such that $f(x) = P(X=x)$. The \textbf{cumuluative distribution function (CDF)} is the function $F(x)$ such that $F(x) = P(X \le x)$. For a continuous RV, the \textbf{probability density function (PDF)} is the function $f(x)$ such that $P(a \le X \le b) = \int_a^b f(x)\: dx$. 
+
+A \textbf{point estimate} of a parameter $\theta$ is a single number that can be regarded as a sensible value for $\theta$. It is obtained by selecting a suitable statistic and computing its value from the given sample data. The selected statistic is called the \textbf{point estimator} $\Param$. The average error of $\Param$ is its \textbf{bias}. The \textbf{standard error} tells us about the quality of the estimator.
+
+The \textbf{z-table} is typically used for confidence intervals and hypothesis tests on normally distributed data when $n \ge 30$ or when the population standard deviation $\sigma$ is known. $z_\alpha$ is defined as $\Phi^{-1}(\alpha)$. 
+
+A \textbf{p-value} describes the probability that something as or more extreme than what we measured happens assuming $H_0$ is true.
+
+A \textbf{paired sample} is a set of data where each observation in one group is directly linked to another. We're interested in the differences between the groups, $d = x_1 - x_2$. $n_d$ denotes the number of differences. The average difference is $\bar{d} = \bar{x}_1 - \bar{x}_2$. For \textbf{differences between proportions}, the proportion for sample $n$ is represented as $\hat{p}_n$, and its variance is $\hat{p}_n (1 - \hat{p}_n)$.
+
+The \textbf{coefficient of determination} $R^2$ is a measure in $[0,1]$ describing how much of the variance of $y$ is explainable by $x$. For simple linear regression, $R^2 = r^2$. In this case, to determine the correlation $r$ using $R^2$, use $r = \operatorname{sign}(\hat{\beta}_1) \sqrt{R^2}$.
+
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        & $H_0$ is actually true & $H_0$ is actually false \\
+        \hline
+        Reject $H_0$ & Type I error (false positive) (probability: $\alpha$) & True positive ($1 - \beta =$ power) \\
+        \hline
+        Fail to reject $H_0$ & True negative (probability: $1 - \alpha$) & Type II error (false negative) (probability: $\beta$) \\
+        \hline
+    \end{tabular}
+\end{center}
+\section*{Formulas}
+\begin{center}
+    \begin{tabular}{cc|cc}
+        Sample mean & $\bar{x} = \displaystyle \frac{\sum^n_{i=1} x_i}{n}$ & Union probability & $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ \\
+        Definition of $S_{xy}$ & $\displaystyle S_{xy} = \sum^n_{i=1} (x_i - \bar{x}) (y_i - \bar{y})$ & $\displaystyle\underset{\text{ordered, $k$ out of $n$ objects}}{\text{Permutations}}$ & $\displaystyle _nP_k = \frac{n!}{(n-k)!}$ \\
+        Sample variance & $\displaystyle s^2 = \frac{S_{xx}}{n-1} = \frac{\sum (x_i - \bar{x})^2}{n-1}$ & $\displaystyle\underset{\text{unordered, $k$ out of $n$ objects}}{\text{Combinations}}$ & $\displaystyle _nC_k = \frac{n!}{k! (n-k)!}$\\
+        Standard deviation & $s = \sqrt{s^2}$ & Multiplication rule & $P(A \cap B) = P(A \mid B) P(B)$ \\
+        Position of $p$th Percentile & $\displaystyle \begin{cases}
+            (p\%)n + \frac{1}{2} & (p\%)n \in \mathbb{Z} \\
+            \lceil (p\%)n \rceil & \text{otherwise}
+        \end{cases}$ & Conditional probability & $\displaystyle P(A \mid B) = \frac{P(A \cap B)}{P(B)}$ \\
+        Interquartile Range & $\IQR = Q_3 - Q_1$ & Outlier cutoff & $\displaystyle \left( Q_1 - 1.5\IQR, Q_3 + 1.5\IQR \right)$ \\
+        Correlation $r$ & $\displaystyle r = \frac{S_{xy}}{\sqrt{S_{xx} S_{xy}}}$ & Law of Total Probability & $\displaystyle P(B) = \sum^k_{i=1} P(B \mid A_i) P(A_i)$ \\
+        \hline
+    \end{tabular}
+    \begin{tabular}{cc}
+        Bayes Theorem & $\displaystyle P(A_j \mid B) = \frac{P(A_j \cap B)}{P(B)} = \frac{P(B \mid A_j) P(A_j)}{\sum^k_{i=1} P(B \mid A_i) P(A_i)}$ \\
+        \hline
+        Discrete probabilities with CDF & \renewcommand{\arraystretch}{1.1} $\displaystyle\begin{array}{rcl}
+            P(a \le X \le b) & = & F(b) - F(a-1) \\
+            P(a < X \le b) & = & F(b) - F(a) \\
+            P(a \le X < b) & = & F(b-1) - F(a-1) \\
+            P(a < x < b) & = & F(b-1) - F(a) \\
+            P(x=a) & = & F(a) - F(a-1)
+        \end{array}$ \\
+        \hline
+        Expected value ($\mu$) & \renewcommand{\arraystretch}{1.25} $\displaystyle\begin{array}{rcl}
+            E(X) & = & \sum^n_{i=1} x_i f(x_i) \\
+            E(h(X)) & = & \sum^n_{i=1} h(x_i) f(x_i) \\
+            E(aX+b) & = & a \cdot E(X) + b
+        \end{array}$ \\
+        \hline
+        Variance & \renewcommand{\arraystretch}{1.1} $\displaystyle\begin{array}{rcl}
+            V(X) & = & \sum_n (x - \mu)^2 f(x) \\
+            & = & E((X - \mu)^2) \\
+            & = & E(X^2) - (E(X))^2 \\
+            V(h(X)) & = & E(h(X)^2) - (E(h(X)))^2 \\
+            V(aX+b) & = & a^2 V(X)
+        \end{array}$
+    \end{tabular}
+\end{center}
+
+\begin{table}
+    \centering
+    \begin{tabular}{cc}
+        Gamma function & $\Gamma(x) = (x-1)! = \int_0^\infty t^{x-1} e^{-t} \:dt$ \\
+        Continuous RV expected value & $\mu_x = E(X) = \int_{-\infty}^\infty x\: f(x)\: dx$ \\
+        Continuous RV variance & $\sigma^2 = \operatorname{Var}(X) = \int_{-\infty}^\infty (x-\mu)^2 f(x)\: dx = E(X^2) - (E(X))^2$ \\
+        $n$th percentile of an RV & $\displaystyle P(X \le v) = \int_{-\infty}^v f(x)\: dx \overset{\text{set}}{=} n\%$ \\
+        \hline
+        Central Limit Theorem for $X_1, X_2, \dots, X_n$ & $\Xbar = N\left(\mu_{\Xbar} = \mu, \sigma_{\Xbar}^2 = \frac{\sigma^2}{n}\right)$ \\
+        Bias & $\Bias(\Param) = E(\Param - \theta) = E(\Param) - \theta$ \\
+        Mean squared error & MSE $= E((\Param - \theta)^2) = \Var(\Param) + \Bias(\Param)$ \\
+        Standard error & $\displaystyle \operatorname{StdError}(\Xbar) = \sqrt{\Var(\Xbar)} = \frac{\sigma}{\sqrt{n}}$ \\
+        \hline
+        $1 - \alpha$ confidence interval for $\mu$ ($z$-test) & $\displaystyle \bar{x} \pm z_{\alpha/2} \left(\frac{\sigma}{\sqrt{n}}\right)$ \\
+        $1 - \alpha$ confidence interval for $\mu$ ($t$-test) & $\displaystyle \bar{x} \pm t_{\alpha/2,\: n-1} \left(\frac{s}{\sqrt{n}}\right)$ \\
+        95\% confidence interval for $\mu$ & $\displaystyle \left(\bar{x} - 1.96 \frac{\sigma}{\sqrt{n}},\; \bar{x} + 1.96 \frac{\sigma}{\sqrt{n}}\right)$ \\ 
+        \hline
+        Normal dist. standardization ($z$ test statistic) & $\displaystyle z = \frac{x - \mu}{\sigma} = \frac{\Xbar - \mu_x}{\sigma_x / \sqrt{n}}$ \\
+        $t$ test statistic & $\displaystyle t = \frac{\bar{x} - \mu_0}{s / \sqrt{n}}$ \\
+        Left-tailed test critical value & $z_\alpha = \Phi^{-1}(\alpha)$ or $-t_{\alpha,\: n-1}$ \\
+        Right-tailed test critical value & $-z_\alpha$ or $z_{1-\alpha}$ or $t_{\alpha,\: n-1}$ \\
+        Two-tailed test critical value & $z_{\alpha/2}$ or $\pm t_{\alpha/2,\: n-1}$ \\
+        $H_0$ rejection & $|\text{Test stat}| > |\text{Critical val}|$ or $p$-value $\le \alpha$ \\
+        \hline
+        Two-sample degrees of freedom & $v = \min(n_1 - 1,\: n_2 - 1)$ \\
+        $1-\alpha$ confidence interval for $\mu_1 - \mu_2$ & $\displaystyle (\bar{x}_1 - \bar{x}_2) \pm t_{\alpha/2,\: v} \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}$ \\
+        $t_\text{stat}$ when $H_0$: $\mu_1 - \mu_2 = \Delta_0$ & $\displaystyle t_\text{stat} = \frac{\bar{x}_1 - \bar{x}_2 - \Delta_0}{\sqrt{(s_1^2 / n_1) + (s_2^2 / n_2)}}$ \\
+        $1-\alpha$ confidence interval for $\mu_d$ & $\displaystyle \bar{d} \pm t_{\alpha/2,\: n_d-1} \left(\frac{s_d}{\sqrt{n_d}}\right)$ \\
+        $t_\text{stat}$ when $H_0$: $\mu_d = \Delta_0$ & $\displaystyle t_\text{stat} = \frac{\bar{d} - \Delta_0}{s_d / \sqrt{n_d}}$ \\
+        $1-\alpha$ confidence interval for $p_1 - p_2$ & $\displaystyle (\hat{p}_1 - \hat{p}_2) \pm z_{\alpha/2} \sqrt{\frac{\hat{p}_1 (1 - \hat{p}_1)}{n_1} + \frac{\hat{p}_2 (1 - \hat{p}_2)}{n_2}}$ \\
+        $z_\text{stat}$ when $H_0$: $p_1 - p_2 = \Delta_0$ & $\displaystyle z_\text{stat} = \frac{\hat{p}_1 - \hat{p}_2 - \Delta_0}{\sqrt{\hat{p} (1 - \hat{p}) (\frac{1}{n_1} + \frac{1}{n_2})}}$ where $\displaystyle \hat{p} = \frac{n_1 \hat{p}_1 + n_2 \hat{p}_2}{n_1 + n_2}$ \\
+        \hline
+        Least squares regression line & $\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x$ \\
+        True slope $\hat{\beta}_1$ & $\displaystyle \hat{\beta}_1 = \frac{\sum_{i=1}^n (x_i - \bar{x}) (y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2} = \frac{S_{xy}}{S_{xx}}$ \\
+        True intercept $\hat{\beta}_0$ & $\displaystyle \hat{\beta}_0 = \frac{\sum_{i=1}^n y_i - \hat{\beta}_1 \sum_{i=1}^n x^i}{n} = \bar{y} - \hat{\beta}_1 \bar{x}$ \\
+        Least squares estimate of variance & $\displaystyle \sigma^2 = \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{n-2} = \frac{\SSE}{n-2} = \frac{S_{yy} - \hat{\beta}_1 S_{xy}}{n-2}$ \\
+        Coefficient of determination $R^2$ & $\displaystyle R^2 = 1 - \frac{\SSE}{\SST} = 1 - \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{\sum_{i=1}^n (y_i - \bar{y})^2}$ \\
+        Correlation $r$ for simple linear regression & $\displaystyle r = \frac{S_{xy}}{\sqrt{S_{xx}} \sqrt{S_{yy}}} = \operatorname{sign}(\hat{\beta}_1) \cdot \sqrt{R^2}$ \\ 
+    \end{tabular} 
+\end{table}
+\end{document}
